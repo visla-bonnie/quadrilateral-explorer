@@ -21,7 +21,9 @@
       --shadow:0 20px 40px rgba(0,0,0,.28);
       --radius:24px;
     }
+
     *{box-sizing:border-box}
+
     body{
       margin:0;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
@@ -34,150 +36,560 @@
       min-height:100vh;
       overflow-x:hidden;
     }
+
     .float{
-      position:fixed; inset:auto; border-radius:999px; filter:blur(42px); opacity:.35; pointer-events:none;
+      position:fixed;
+      inset:auto;
+      border-radius:999px;
+      filter:blur(42px);
+      opacity:.35;
+      pointer-events:none;
       animation: drift 12s ease-in-out infinite;
     }
     .f1{width:180px;height:180px;background:#6ee7ff; left:2%; top:8%;}
     .f2{width:220px;height:220px;background:#ff7be1; right:3%; top:10%; animation-duration:15s;}
     .f3{width:180px;height:180px;background:#76ffb2; left:40%; bottom:4%; animation-duration:13s;}
+
     @keyframes drift{
       0%,100%{transform:translateY(0) translateX(0)}
       50%{transform:translateY(-20px) translateX(18px)}
     }
-    .app{max-width:1200px; margin:0 auto; padding:22px;}
+
+    .app{max-width:1240px; margin:0 auto; padding:22px;}
+
     .hero{
-      display:grid; grid-template-columns:1.15fr .85fr; gap:24px;
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:24px;
       background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
       border:1px solid var(--line);
-      border-radius:32px; padding:28px; box-shadow:var(--shadow); backdrop-filter: blur(10px);
+      border-radius:32px;
+      padding:28px;
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(10px);
     }
+
     .badge{
-      display:inline-block; padding:8px 12px; border-radius:999px;
-      background:rgba(255,255,255,.09); color:#fff; border:1px solid rgba(255,255,255,.12);
-      font-size:13px; margin-right:8px; margin-bottom:10px;
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.09);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.12);
+      font-size:13px;
+      margin-right:8px;
+      margin-bottom:10px;
     }
+
     h1{
-      font-size:clamp(36px, 4.8vw, 62px); line-height:1.02; margin:10px 0 14px; letter-spacing:-.03em;
+      font-size:clamp(36px, 4.8vw, 62px);
+      line-height:1.02;
+      margin:10px 0 14px;
+      letter-spacing:-.03em;
     }
-    .sub{font-size:18px; color:var(--muted); max-width:720px; line-height:1.6}
-    .hero-actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
+
+    .sub{
+      font-size:18px;
+      color:var(--muted);
+      max-width:720px;
+      line-height:1.6;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+
     button, .btn{
-      border:none; cursor:pointer; border-radius:16px; padding:12px 16px; font-weight:700;
-      background:#fff; color:#06203a; box-shadow:var(--shadow); transition:.2s transform,.2s opacity,.2s background;
+      border:none;
+      cursor:pointer;
+      border-radius:16px;
+      padding:12px 16px;
+      font-weight:700;
+      background:#fff;
+      color:#06203a;
+      box-shadow:var(--shadow);
+      transition:.2s transform,.2s opacity,.2s background,.2s box-shadow;
     }
+
     button:hover,.btn:hover{transform:translateY(-2px)}
+
     .btn.secondary{
-      background:rgba(255,255,255,.08); color:#fff; border:1px solid var(--line); box-shadow:none;
+      background:rgba(255,255,255,.08);
+      color:#fff;
+      border:1px solid var(--line);
+      box-shadow:none;
     }
+
     .preview{
-      position:relative; min-height:320px; display:grid; place-items:center;
-      border-radius:28px; border:1px solid var(--line);
+      position:relative;
+      min-height:320px;
+      display:grid;
+      place-items:center;
+      border-radius:28px;
+      border:1px solid var(--line);
       background:rgba(4,10,22,.45);
       overflow:hidden;
     }
+
     .shape-cloud{
-      display:grid; grid-template-columns:1fr 1fr; gap:18px; width:100%; padding:24px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+      width:100%;
+      padding:24px;
     }
+
     .shape-tile{
-      background:rgba(255,255,255,.04); border:1px solid var(--line);
-      border-radius:22px; height:130px; display:grid; place-items:center;
-      transform-style:preserve-3d; animation: bob 4s ease-in-out infinite;
+      background:rgba(255,255,255,.04);
+      border:1px solid var(--line);
+      border-radius:22px;
+      height:130px;
+      display:grid;
+      place-items:center;
+      transform-style:preserve-3d;
+      animation: bob 4s ease-in-out infinite;
     }
+
     .shape-tile:nth-child(2){animation-duration:4.8s}
     .shape-tile:nth-child(3){animation-duration:5.4s}
     .shape-tile:nth-child(4){animation-duration:4.3s}
-    @keyframes bob{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-8px) rotate(1deg)}}
-    .tabs{display:flex; gap:10px; flex-wrap:wrap; margin:24px 0}
-    .tab{
-      padding:12px 16px; border-radius:14px; border:1px solid var(--line);
-      background:rgba(255,255,255,.06); color:#fff; font-weight:700; cursor:pointer;
+
+    @keyframes bob{
+      0%,100%{transform:translateY(0) rotate(-1deg)}
+      50%{transform:translateY(-8px) rotate(1deg)}
     }
-    .tab.active{background:rgba(86,200,255,.18); border-color:rgba(86,200,255,.45)}
+
+    .tabs{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin:24px 0;
+    }
+
+    .tab{
+      padding:12px 16px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      color:#fff;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .tab.active{
+      background:rgba(86,200,255,.18);
+      border-color:rgba(86,200,255,.45);
+    }
+
     .panel{display:none}
     .panel.active{display:block}
+
     .grid{display:grid; gap:18px}
     .learn-grid{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+
     .card{
-      background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
-      box-shadow:var(--shadow); overflow:hidden;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
     }
+
     .card-head{
-      padding:16px 18px; font-size:24px; font-weight:900;
+      padding:16px 18px;
+      font-size:24px;
+      font-weight:900;
       background:linear-gradient(90deg,var(--c1),var(--c2));
     }
+
     .card-body{padding:18px}
-    .lesson-wrap{display:grid; grid-template-columns:1fr 1.1fr; gap:18px; align-items:center}
-    .shape-stage{
-      background:rgba(7,18,38,.55); border:1px solid var(--line); min-height:250px; border-radius:24px;
-      display:grid; place-items:center; position:relative; overflow:hidden;
+
+    .lesson-wrap{
+      display:grid;
+      grid-template-columns:1fr 1.1fr;
+      gap:18px;
+      align-items:center;
     }
+
+    .shape-stage{
+      background:rgba(7,18,38,.55);
+      border:1px solid var(--line);
+      min-height:250px;
+      border-radius:24px;
+      display:grid;
+      place-items:center;
+      position:relative;
+      overflow:hidden;
+    }
+
     .shape-stage::after{
-      content:""; position:absolute; inset:auto 30px 22px 30px; height:18px; border-radius:999px;
+      content:"";
+      position:absolute;
+      inset:auto 30px 22px 30px;
+      height:18px;
+      border-radius:999px;
       background:radial-gradient(circle, rgba(255,255,255,.22), rgba(255,255,255,0));
       filter:blur(12px);
     }
+
     .rotator{margin-top:12px}
-    .rotator label{display:flex; justify-content:space-between; color:var(--muted); font-size:14px}
+    .rotator label{
+      display:flex;
+      justify-content:space-between;
+      color:var(--muted);
+      font-size:14px;
+    }
+
     input[type="range"]{width:100%}
+
     .fact{
-      background:rgba(255,255,255,.06); border:1px solid var(--line); color:#eef6ff;
-      border-radius:18px; padding:12px 14px; margin:8px 0;
+      background:rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      color:#eef6ff;
+      border-radius:18px;
+      padding:12px 14px;
+      margin:8px 0;
     }
-    .why{margin-top:12px; background:rgba(4,10,22,.55); border:1px solid var(--line); border-radius:18px; padding:14px; color:var(--muted)}
-    .family{
-      display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px;
+
+    .why{
+      margin-top:12px;
+      background:rgba(4,10,22,.55);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:14px;
+      color:var(--muted);
     }
-    .chip{
-      padding:16px; border-radius:20px; background:rgba(255,255,255,.06); border:1px solid var(--line);
+
+    .controls{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom:14px;
     }
-    .controls{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px}
+
     .pill{
-      padding:10px 14px; border-radius:999px; background:rgba(255,255,255,.07); border:1px solid var(--line); cursor:pointer;
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.07);
+      border:1px solid var(--line);
+      cursor:pointer;
       font-weight:700;
     }
-    .pill.active{background:rgba(255,215,106,.18); border-color:rgba(255,215,106,.35)}
+
+    .pill.active{
+      background:rgba(255,215,106,.18);
+      border-color:rgba(255,215,106,.35);
+    }
+
     .quiz-box{padding:18px}
-    .status{display:flex; gap:8px; flex-wrap:wrap; align-items:center; color:var(--muted); margin-bottom:12px}
+
+    .status{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+      color:var(--muted);
+      margin-bottom:12px;
+    }
+
     .question{
-      font-size:26px; line-height:1.25; font-weight:900; margin:10px 0 16px; letter-spacing:-.02em;
+      font-size:26px;
+      line-height:1.25;
+      font-weight:900;
+      margin:10px 0 16px;
+      letter-spacing:-.02em;
     }
-    .answers{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+
+    .answers{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
     .answer{
-      text-align:left; padding:16px; min-height:72px;
-      background:rgba(255,255,255,.06); border:1px solid var(--line); color:#fff;
-      border-radius:18px; font-size:16px; font-weight:700;
+      text-align:left;
+      padding:16px;
+      min-height:72px;
+      background:rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      color:#fff;
+      border-radius:18px;
+      font-size:16px;
+      font-weight:700;
     }
-    .answer.correct{background:rgba(74,222,128,.18); border-color:rgba(74,222,128,.55)}
-    .answer.wrong{background:rgba(255,126,126,.18); border-color:rgba(255,126,126,.55)}
+
+    .answer.correct{
+      background:rgba(74,222,128,.18);
+      border-color:rgba(74,222,128,.55);
+    }
+
+    .answer.wrong{
+      background:rgba(255,126,126,.18);
+      border-color:rgba(255,126,126,.55);
+    }
+
     .explain{
-      margin-top:14px; padding:14px; border-radius:18px; color:var(--muted);
-      background:rgba(4,10,22,.55); border:1px solid var(--line);
+      margin-top:14px;
+      padding:14px;
+      border-radius:18px;
+      color:var(--muted);
+      background:rgba(4,10,22,.55);
+      border:1px solid var(--line);
     }
-    .row{display:flex; gap:12px; flex-wrap:wrap; align-items:center}
-    .meter{height:10px; width:100%; border-radius:999px; background:rgba(255,255,255,.08); overflow:hidden; margin:12px 0 16px}
-    .fill{height:100%; width:0; background:linear-gradient(90deg, var(--sky), var(--green))}
+
+    .row{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .meter{
+      height:10px;
+      width:100%;
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      overflow:hidden;
+      margin:12px 0 16px;
+    }
+
+    .fill{
+      height:100%;
+      width:0;
+      background:linear-gradient(90deg, var(--sky), var(--green));
+    }
+
     .scorebox{
-      padding:18px; border-radius:22px; text-align:center; background:rgba(4,10,22,.55); border:1px solid var(--line);
+      padding:18px;
+      border-radius:22px;
+      text-align:center;
+      background:rgba(4,10,22,.55);
+      border:1px solid var(--line);
     }
-    .match-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+
+    .match-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+
     .match-item{
-      width:100%; text-align:left; padding:14px; border-radius:16px;
-      background:rgba(255,255,255,.06); color:#fff; border:1px solid var(--line);
+      width:100%;
+      text-align:left;
+      padding:14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.06);
+      color:#fff;
+      border:1px solid var(--line);
     }
-    .match-item.done{background:rgba(74,222,128,.18); border-color:rgba(74,222,128,.55)}
-    .parent-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px}
+
+    .match-item.done{
+      background:rgba(74,222,128,.18);
+      border-color:rgba(74,222,128,.55);
+    }
+
+    .parent-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:14px;
+    }
+
     .stat{
-      padding:18px; border-radius:20px; background:rgba(255,255,255,.06); border:1px solid var(--line);
+      padding:18px;
+      border-radius:20px;
+      background:rgba(255,255,255,.06);
+      border:1px solid var(--line);
     }
-    .stat .num{font-size:34px; font-weight:900}
-    .footer{padding:24px 0 60px; color:var(--muted); text-align:center}
-    .tiny{font-size:13px; color:var(--muted)}
-    @media (max-width: 920px){
-      .hero, .lesson-wrap, .match-grid{grid-template-columns:1fr}
-      .answers{grid-template-columns:1fr}
-      .preview{min-height:260px}
+
+    .stat .num{
+      font-size:34px;
+      font-weight:900;
     }
+
+    .footer{
+      padding:24px 0 60px;
+      color:var(--muted);
+      text-align:center;
+    }
+
+    .tiny{
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    /* FAMILY MAP UPGRADE */
+    .family-tree-wrap{
+      position:relative;
+      min-height:760px;
+      padding:8px 8px 20px;
+      overflow:hidden;
+    }
+
+    .family-note{
+      text-align:center;
+      color:var(--muted);
+      font-size:15px;
+      margin-bottom:20px;
+    }
+
+    .family-canvas{
+      position:relative;
+      width:100%;
+      min-height:650px;
+      border-radius:28px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(86,200,255,.12), transparent 35%),
+        radial-gradient(circle at 50% 100%, rgba(86,227,159,.09), transparent 40%),
+        rgba(6,14,28,.45);
+      border:1px solid rgba(255,255,255,.08);
+      overflow:hidden;
+    }
+
+    .glow-line{
+      position:absolute;
+      background:linear-gradient(180deg, rgba(86,200,255,.95), rgba(86,227,159,.9));
+      box-shadow:0 0 14px rgba(86,200,255,.7), 0 0 24px rgba(86,227,159,.4);
+      opacity:.72;
+      transition:.25s ease;
+    }
+
+    .glow-line.horizontal{
+      height:4px;
+      border-radius:999px;
+    }
+
+    .glow-line.vertical{
+      width:4px;
+      border-radius:999px;
+    }
+
+    .glow-line.dim{
+      opacity:.18;
+      box-shadow:none;
+    }
+
+    .glow-line.active{
+      opacity:1;
+      box-shadow:0 0 18px rgba(86,200,255,.95), 0 0 34px rgba(86,227,159,.65);
+    }
+
+    .tree-node{
+      position:absolute;
+      min-width:180px;
+      text-align:center;
+      padding:16px 18px;
+      border-radius:20px;
+      font-weight:900;
+      font-size:22px;
+      color:white;
+      border:1px solid rgba(255,255,255,.2);
+      box-shadow:0 16px 30px rgba(0,0,0,.22);
+      transition:transform .2s ease, box-shadow .2s ease, opacity .2s ease, filter .2s ease;
+      cursor:pointer;
+      backdrop-filter: blur(8px);
+    }
+
+    .tree-node small{
+      display:block;
+      font-size:13px;
+      font-weight:500;
+      margin-top:6px;
+      color:rgba(255,255,255,.88);
+    }
+
+    .tree-node:hover{
+      transform:translateY(-3px) scale(1.02);
+      box-shadow:0 20px 36px rgba(0,0,0,.28);
+    }
+
+    .tree-node.dim{
+      opacity:.42;
+      filter:saturate(.7);
+    }
+
+    .tree-node.active{
+      transform:translateY(-4px) scale(1.03);
+      box-shadow:0 0 0 2px rgba(255,255,255,.22), 0 0 24px rgba(86,200,255,.55), 0 18px 34px rgba(0,0,0,.35);
+      z-index:3;
+    }
+
+    .node-quad{background:linear-gradient(135deg,#60a5fa,#22d3ee); top:24px; left:50%; transform:translateX(-50%);}
+    .node-para{background:linear-gradient(135deg,#8b5cf6,#6366f1); top:165px; left:12%;}
+    .node-trap{background:linear-gradient(135deg,#f59e0b,#f97316); top:165px; left:50%; transform:translateX(-50%);}
+    .node-kite{background:linear-gradient(135deg,#fb7185,#ef4444); top:165px; right:12%;}
+    .node-rect{background:linear-gradient(135deg,#38bdf8,#06b6d4); top:340px; left:23%;}
+    .node-rhom{background:linear-gradient(135deg,#d946ef,#ec4899); top:340px; right:23%;}
+    .node-square{background:linear-gradient(135deg,#22c55e,#16a34a); top:520px; left:50%; transform:translateX(-50%);}
+
+    .family-explain{
+      margin-top:18px;
+      padding:16px 18px;
+      border-radius:18px;
+      background:rgba(4,10,22,.58);
+      border:1px solid var(--line);
+      color:var(--muted);
+      min-height:94px;
+    }
+
+    .family-explain-title{
+      font-size:20px;
+      font-weight:900;
+      color:#fff;
+      margin-bottom:6px;
+    }
+
+    .family-legend{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:center;
+      margin-top:18px;
+    }
+
+    .legend-chip{
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.07);
+      border:1px solid var(--line);
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    @media (max-width: 980px){
+      .hero,
+      .lesson-wrap,
+      .match-grid{
+        grid-template-columns:1fr;
+      }
+
+      .answers{
+        grid-template-columns:1fr;
+      }
+
+      .preview{
+        min-height:260px;
+      }
+
+      .family-tree-wrap{
+        min-height:auto;
+      }
+
+      .family-canvas{
+        min-height:980px;
+      }
+
+      .node-quad{top:20px; left:50%; transform:translateX(-50%);}
+      .node-para{top:145px; left:50%; transform:translateX(-50%);}
+      .node-trap{top:285px; left:50%; transform:translateX(-50%);}
+      .node-kite{top:425px; left:50%; right:auto; transform:translateX(-50%);}
+      .node-rect{top:570px; left:50%; transform:translateX(-50%);}
+      .node-rhom{top:710px; left:50%; right:auto; transform:translateX(-50%);}
+      .node-square{top:850px; left:50%; transform:translateX(-50%);}
+    }
+
     svg{overflow:visible}
   </style>
 </head>
@@ -226,9 +638,80 @@
 
     <section id="family" class="panel">
       <div class="card">
-        <div class="card-head" style="--c1:#5fc7ff;--c2:#61ffb9">Shape Family Map</div>
+        <div class="card-head" style="--c1:#5fc7ff;--c2:#61ffb9">Interactive Shape Family Map</div>
         <div class="card-body">
-          <div class="family" id="family-grid"></div>
+          <div class="family-tree-wrap">
+            <div class="family-note">
+              Click a shape to see how it belongs to the bigger quadrilateral family.
+            </div>
+
+            <div class="family-canvas" id="family-canvas">
+              <!-- lines desktop / mobile logic stays same visually -->
+              <div class="glow-line vertical" id="line-q-down" style="top:96px; left:50%; height:44px;"></div>
+
+              <div class="glow-line horizontal" id="line-split-top" style="top:140px; left:19%; width:62%;"></div>
+
+              <div class="glow-line vertical" id="line-to-para" style="top:140px; left:22%; height:26px;"></div>
+              <div class="glow-line vertical" id="line-to-trap" style="top:140px; left:50%; height:26px;"></div>
+              <div class="glow-line vertical" id="line-to-kite" style="top:140px; left:78%; height:26px;"></div>
+
+              <div class="glow-line vertical" id="line-para-down" style="top:228px; left:22%; height:64px;"></div>
+              <div class="glow-line horizontal" id="line-para-split" style="top:292px; left:29%; width:42%;"></div>
+              <div class="glow-line vertical" id="line-to-rect" style="top:292px; left:32%; height:48px;"></div>
+              <div class="glow-line vertical" id="line-to-rhom" style="top:292px; left:68%; height:48px;"></div>
+
+              <div class="glow-line vertical" id="line-rect-down" style="top:404px; left:32%; height:58px;"></div>
+              <div class="glow-line vertical" id="line-rhom-down" style="top:404px; left:68%; height:58px;"></div>
+              <div class="glow-line horizontal" id="line-square-join" style="top:462px; left:38%; width:24%;"></div>
+              <div class="glow-line vertical" id="line-square-down" style="top:462px; left:50%; height:58px;"></div>
+
+              <button class="tree-node node-quad" data-node="quadrilateral" onclick="selectFamilyNode('quadrilateral')">
+                Quadrilateral
+                <small>The big family</small>
+              </button>
+
+              <button class="tree-node node-para" data-node="parallelogram" onclick="selectFamilyNode('parallelogram')">
+                Parallelogram
+                <small>Opposite sides parallel</small>
+              </button>
+
+              <button class="tree-node node-trap" data-node="trapezoid" onclick="selectFamilyNode('trapezoid')">
+                Trapezoid
+                <small>One pair of parallel sides</small>
+              </button>
+
+              <button class="tree-node node-kite" data-node="kite" onclick="selectFamilyNode('kite')">
+                Kite
+                <small>Two adjacent side pairs match</small>
+              </button>
+
+              <button class="tree-node node-rect" data-node="rectangle" onclick="selectFamilyNode('rectangle')">
+                Rectangle
+                <small>4 right angles</small>
+              </button>
+
+              <button class="tree-node node-rhom" data-node="rhombus" onclick="selectFamilyNode('rhombus')">
+                Rhombus
+                <small>4 equal sides</small>
+              </button>
+
+              <button class="tree-node node-square" data-node="square" onclick="selectFamilyNode('square')">
+                Square
+                <small>Rectangle + Rhombus</small>
+              </button>
+            </div>
+
+            <div class="family-explain" id="family-explain">
+              <div class="family-explain-title">Tap a shape</div>
+              Then the map will highlight how that shape fits into the family tree.
+            </div>
+
+            <div class="family-legend">
+              <div class="legend-chip">Click nodes to highlight family relationships</div>
+              <div class="legend-chip">Square belongs to both Rectangle and Rhombus</div>
+              <div class="legend-chip">Quadrilateral is the largest family here</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -380,16 +863,6 @@
       }
     };
 
-    const FAMILY = [
-      ["Quadrilateral", "The big family"],
-      ["Parallelogram", "Opposite sides parallel"],
-      ["Rectangle", "4 right angles"],
-      ["Rhombus", "4 equal sides"],
-      ["Square", "Rectangle + Rhombus"],
-      ["Trapezoid", "One pair of parallel sides"],
-      ["Kite", "Two adjacent side pairs match"]
-    ];
-
     const QUESTIONS = [
       {id:1, level:"easy", type:"property", prompt:"Which shape always has 4 right angles?", options:["Trapezoid","Rectangle","Kite","Rhombus"], answer:"Rectangle", explain:"A rectangle always has 4 right angles. A square does too, but it was not an option here."},
       {id:2, level:"easy", type:"property", prompt:"Which shape has both pairs of opposite sides parallel?", options:["Parallelogram","Kite","Trapezoid","Quadrilateral"], answer:"Parallelogram", explain:"That is the defining property of a parallelogram."},
@@ -417,6 +890,51 @@
       ["1 pair of parallel sides", "Trapezoid"],
       ["4 congruent sides", "Rhombus"]
     ];
+
+    const FAMILY_INFO = {
+      quadrilateral: {
+        title: "Quadrilateral",
+        text: "A quadrilateral is the biggest family in this map. Every shape shown here has 4 sides, so they all belong under quadrilateral.",
+        nodes: ["quadrilateral"],
+        lines: ["line-q-down","line-split-top","line-to-para","line-to-trap","line-to-kite"]
+      },
+      parallelogram: {
+        title: "Parallelogram",
+        text: "A parallelogram has both pairs of opposite sides parallel. Rectangle and rhombus both belong inside the parallelogram family.",
+        nodes: ["quadrilateral","parallelogram","rectangle","rhombus"],
+        lines: ["line-q-down","line-split-top","line-to-para","line-para-down","line-para-split","line-to-rect","line-to-rhom"]
+      },
+      trapezoid: {
+        title: "Trapezoid",
+        text: "In this lesson, a trapezoid has one pair of parallel sides. It belongs directly under quadrilateral.",
+        nodes: ["quadrilateral","trapezoid"],
+        lines: ["line-q-down","line-split-top","line-to-trap"]
+      },
+      kite: {
+        title: "Kite",
+        text: "A kite has two pairs of adjacent congruent sides. It belongs directly under quadrilateral in this family map.",
+        nodes: ["quadrilateral","kite"],
+        lines: ["line-q-down","line-split-top","line-to-kite"]
+      },
+      rectangle: {
+        title: "Rectangle",
+        text: "A rectangle is a special parallelogram with 4 right angles. That means it belongs inside the parallelogram family and also inside the larger quadrilateral family.",
+        nodes: ["quadrilateral","parallelogram","rectangle"],
+        lines: ["line-q-down","line-split-top","line-to-para","line-para-down","line-para-split","line-to-rect"]
+      },
+      rhombus: {
+        title: "Rhombus",
+        text: "A rhombus is a special parallelogram with 4 congruent sides. So it belongs inside parallelogram and inside quadrilateral.",
+        nodes: ["quadrilateral","parallelogram","rhombus"],
+        lines: ["line-q-down","line-split-top","line-to-para","line-para-down","line-para-split","line-to-rhom"]
+      },
+      square: {
+        title: "Square",
+        text: "A square is the most special shape here. It is a rectangle because it has 4 right angles. It is also a rhombus because it has 4 equal sides. And both of those belong to parallelogram, which belongs to quadrilateral.",
+        nodes: ["quadrilateral","parallelogram","rectangle","rhombus","square"],
+        lines: ["line-q-down","line-split-top","line-to-para","line-para-down","line-para-split","line-to-rect","line-to-rhom","line-rect-down","line-rhom-down","line-square-join","line-square-down"]
+      }
+    };
 
     const stats = JSON.parse(localStorage.getItem("quadExplorerStats") || '{"answered":0,"correct":0,"wrongIds":[]}');
 
@@ -526,8 +1044,45 @@
     }
 
     function renderFamily() {
-      const grid = document.getElementById("family-grid");
-      grid.innerHTML = FAMILY.map(([t,s]) => `<div class="chip"><div style="font-weight:900;font-size:20px">${t}</div><div class="tiny" style="margin-top:6px">${s}</div></div>`).join("");
+      selectFamilyNode("quadrilateral");
+    }
+
+    function selectFamilyNode(nodeKey) {
+      const info = FAMILY_INFO[nodeKey];
+      if (!info) return;
+
+      document.querySelectorAll(".tree-node").forEach(node => {
+        const key = node.dataset.node;
+        node.classList.remove("active","dim");
+        if (!info.nodes.includes(key)) node.classList.add("dim");
+      });
+
+      document.querySelectorAll(".glow-line").forEach(line => {
+        line.classList.remove("active");
+        line.classList.add("dim");
+      });
+
+      info.nodes.forEach(key => {
+        const node = document.querySelector(`.tree-node[data-node="${key}"]`);
+        if (node) {
+          node.classList.remove("dim");
+          node.classList.add("active");
+        }
+      });
+
+      info.lines.forEach(id => {
+        const line = document.getElementById(id);
+        if (line) {
+          line.classList.remove("dim");
+          line.classList.add("active");
+        }
+      });
+
+      const explain = document.getElementById("family-explain");
+      explain.innerHTML = `
+        <div class="family-explain-title">${info.title}</div>
+        ${info.text}
+      `;
     }
 
     function getActiveQuestions() {
@@ -663,9 +1218,11 @@
       propBox.innerHTML = MATCH_PAIRS.map(([prop]) => `
         <button class="match-item ${state.matchedProps.includes(prop) ? 'done' : ''}" onclick="pickProperty('${prop.replace(/'/g, "\\'")}')">${prop}</button>
       `).join("");
+
       shapeBox.innerHTML = ["Rectangle","Kite","Trapezoid","Rhombus"].map(shape => `
         <button class="match-item" onclick="pickShape('${shape}')">${shape}</button>
       `).join("");
+
       status.textContent = state.selectedMatchProp ? `Now tap the shape for "${state.selectedMatchProp}".` : "Tap a property to begin.";
     }
 
