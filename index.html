@@ -558,6 +558,38 @@
       font-size:14px;
     }
 
+
+
+    /* PROBLEM LIBRARY UPGRADE */
+    .problem-controls{
+      display:flex; gap:10px; flex-wrap:wrap; margin-bottom:18px; align-items:center;
+    }
+    .problem-search{
+      flex:1; min-width:240px; padding:13px 14px; border-radius:16px;
+      border:1px solid var(--line); background:rgba(255,255,255,.08); color:#fff; font-weight:700;
+    }
+    .problem-grid{
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); gap:18px;
+    }
+    .problem-card{
+      background:rgba(255,255,255,.07); border:1px solid var(--line); border-radius:24px;
+      overflow:hidden; box-shadow:0 14px 30px rgba(0,0,0,.20);
+    }
+    .problem-top{
+      display:flex; justify-content:space-between; gap:12px; padding:15px 16px;
+      border-bottom:1px solid var(--line);
+    }
+    .problem-title{font-size:18px; font-weight:900; line-height:1.25; color:#fff;}
+    .problem-id{font-size:14px; white-space:nowrap; color:#fff; background:rgba(86,200,255,.18); border:1px solid rgba(86,200,255,.35); border-radius:999px; padding:6px 10px; font-weight:900; height:max-content;}
+    .problem-diagram{height:220px; display:grid; place-items:center; background:rgba(4,10,22,.5); border-bottom:1px solid var(--line);}
+    .problem-body{padding:15px 16px;}
+    .problem-answer{font-size:20px; font-weight:900; color:#b8ffd7; margin-bottom:10px;}
+    .steps{display:none; margin-top:12px; color:var(--muted); line-height:1.55;}
+    .steps.show{display:block;}
+    .steps li{margin-bottom:6px;}
+    .formula-chip{display:inline-block; margin-top:8px; padding:6px 10px; border-radius:999px; font-size:12px; background:rgba(255,215,106,.13); border:1px solid rgba(255,215,106,.25); color:#ffe6a1;}
+    .problem-note{margin:0 0 16px; font-size:16px;}
+
     @media (max-width: 980px){
       .hero,
       .lesson-wrap,
@@ -627,6 +659,7 @@
     <div class="tabs">
       <button class="tab active" data-tab="learn" onclick="switchTab('learn')">Learn</button>
       <button class="tab" data-tab="family" onclick="switchTab('family')">Family Map</button>
+      <button class="tab" data-tab="library" onclick="switchTab('library')">Problem Library</button>
       <button class="tab" data-tab="practice" onclick="switchTab('practice')">Practice</button>
       <button class="tab" data-tab="match" onclick="switchTab('match')">Match Game</button>
       <button class="tab" data-tab="parent" onclick="switchTab('parent')">Parent Mode</button>
@@ -712,6 +745,25 @@
               <div class="legend-chip">Quadrilateral is the largest family here</div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <section id="library" class="panel">
+      <div class="card">
+        <div class="card-head" style="--c1:#ff8a5b;--c2:#ffd76a">Problem Library: Worksheet Answers + Clear Diagrams</div>
+        <div class="card-body">
+          <p class="sub problem-note">These are the polygon and circle problems from today’s worksheets, organized with answers, step-by-step reasoning, and visual diagrams.</p>
+          <div class="problem-controls">
+            <input class="problem-search" id="problem-search" placeholder="Search: sector, arc, pentagon, exterior, #P15, #C22..." oninput="renderProblemLibrary()" />
+            <button class="pill active" data-problem-filter="all" onclick="setProblemFilter('all')">All</button>
+            <button class="pill" data-problem-filter="Polygon" onclick="setProblemFilter('Polygon')">Polygons</button>
+            <button class="pill" data-problem-filter="Circle" onclick="setProblemFilter('Circle')">Circles</button>
+            <button class="pill" data-problem-filter="check" onclick="setProblemFilter('check')">Needs Check</button>
+          </div>
+          <div class="problem-grid" id="problem-grid"></div>
         </div>
       </div>
     </section>
@@ -862,6 +914,164 @@
         why: "A kite is matched in neighboring side pairs, not opposite side pairs."
       }
     };
+
+    const WORKSHEET_PROBLEMS = [{"id": "P1", "group": "Polygon", "topic": "Interior angle sum", "title": "Find the sum of the interior angles in a 7-gon", "answer": "900°", "steps": ["Use S = (n − 2) × 180°", "n = 7", "S = (7 − 2) × 180° = 900°"], "diagram": "poly7"}, {"id": "P2", "group": "Polygon", "topic": "Interior angle sum", "title": "Find the sum of the interior angles in an 8-gon", "answer": "1080°", "steps": ["S = (8 − 2) × 180° = 1080°"], "diagram": "poly8"}, {"id": "P3", "group": "Polygon", "topic": "Regular polygon angle", "title": "Find each interior angle of a regular 12-gon", "answer": "150°", "steps": ["A = ((n − 2) × 180°) / n", "A = (10 × 180°) / 12 = 150°"], "diagram": "poly12"}, {"id": "P4", "group": "Polygon", "topic": "Regular polygon angle", "title": "Find each interior angle of a regular 15-gon", "answer": "156°", "steps": ["A = ((15 − 2) × 180°) / 15", "A = 2340° / 15 = 156°"], "diagram": "poly15"}, {"id": "P5", "group": "Polygon", "topic": "Exterior angle", "title": "Find each exterior angle of a regular 17-gon", "answer": "360/17° ≈ 21.18°", "steps": ["Exterior angle = 360° / n", "360° / 17 ≈ 21.18°"], "diagram": "exterior"}, {"id": "P6", "group": "Polygon", "topic": "Exterior angle", "title": "Find each exterior angle of a regular 21-gon", "answer": "360/21° ≈ 17.14°", "steps": ["Exterior angle = 360° / 21 ≈ 17.14°"], "diagram": "exterior"}, {"id": "P7", "group": "Polygon", "topic": "Solve for x", "title": "Solve x: quadrilateral angles 5x, 3x, 3x, 4x", "answer": "x = 24", "steps": ["Quadrilateral sum = 360°", "5x + 3x + 3x + 4x = 360", "15x = 360", "x = 24"], "diagram": "quadx"}, {"id": "P8", "group": "Polygon", "topic": "Solve for x", "title": "Solve x: quadrilateral angles 5x, 3x, 2x, 5x", "answer": "x = 24", "steps": ["Quadrilateral sum = 360°", "5x + 3x + 2x + 5x = 360", "15x = 360", "x = 24"], "diagram": "quadx"}, {"id": "P9", "group": "Polygon", "topic": "Solve for x", "title": "Solve x: pentagon angles x, x, 1.5x, 0.5x, 1.5x", "answer": "x ≈ 98.18", "steps": ["Pentagon sum = (5 − 2) × 180° = 540°", "x + x + 1.5x + 0.5x + 1.5x = 540", "5.5x = 540", "x ≈ 98.18"], "diagram": "pentx"}, {"id": "P10", "group": "Polygon", "topic": "Solve for x", "title": "Solve x: hexagon angles 5x, 5x, 3x, 4x, 2x, 4x", "answer": "x ≈ 31.30", "steps": ["Hexagon sum = (6 − 2) × 180° = 720°", "23x = 720", "x ≈ 31.30"], "diagram": "hexx"}, {"id": "P11", "group": "Polygon", "topic": "Number of sides", "title": "Each exterior angle is 16 4/11°. How many sides?", "answer": "22 sides", "steps": ["16 4/11° = 180/11°", "n = 360 ÷ (180/11) = 22"], "diagram": "exterior"}, {"id": "P12", "group": "Polygon", "topic": "Number of sides", "title": "Each exterior angle is 13 1/3°. How many sides?", "answer": "27 sides", "steps": ["13 1/3° = 40/3°", "n = 360 ÷ (40/3) = 27"], "diagram": "exterior"}, {"id": "P13", "group": "Polygon", "topic": "Number of sides", "title": "Each interior angle is 156°. How many sides?", "answer": "15 sides", "steps": ["Exterior angle = 180° − 156° = 24°", "n = 360° ÷ 24° = 15"], "diagram": "interior"}, {"id": "P14", "group": "Polygon", "topic": "Number of sides", "title": "Each interior angle is 165.6°. How many sides?", "answer": "25 sides", "steps": ["Exterior angle = 180° − 165.6° = 14.4°", "n = 360° ÷ 14.4° = 25"], "diagram": "interior"}, {"id": "P15", "group": "Polygon", "topic": "Regular polygon area", "title": "Area of a regular pentagon with side length 8 cm", "answer": "≈ 110.1 cm²", "steps": ["A = n·s² / (4 tan(180°/n))", "A = 5·8² / (4 tan 36°) ≈ 110.1"], "diagram": "area5"}, {"id": "P16", "group": "Polygon", "topic": "Regular polygon area", "title": "Area of a regular hexagon with side length 10 ft", "answer": "150√3 ≈ 259.8 ft²", "steps": ["A = (3√3/2)s²", "A = (3√3/2)(10²) = 150√3 ≈ 259.8"], "diagram": "area6"}, {"id": "P17", "group": "Polygon", "topic": "Regular polygon area", "title": "Area of a regular octagon with side length 12 m", "answer": "≈ 695.3 m²", "steps": ["A = n·s² / (4 tan(180°/n))", "A = 8·12² / (4 tan 22.5°) ≈ 695.3"], "diagram": "area8"}, {"id": "P18", "group": "Polygon", "topic": "Regular polygon area", "title": "Area of a regular decagon with side length 14 in", "answer": "≈ 1508.0 in²", "steps": ["A = 10·14² / (4 tan 18°) ≈ 1508.0"], "diagram": "area10"}, {"id": "P19", "group": "Polygon", "topic": "Solve for x", "title": "Pentagon equation: x−1, 3x+6, 4x−2, 6x+3, 5x+1", "answer": "x = 533/19 ≈ 28.05", "steps": ["Pentagon sum = 540°", "(x−1)+(3x+6)+(4x−2)+(6x+3)+(5x+1)=540", "19x+7=540", "x=533/19≈28.05"], "diagram": "pentx"}, {"id": "P20", "group": "Polygon", "topic": "Solve for x", "title": "Heptagon equation: 5x, x−7, 3x−1, 2x−9, 4x−3, x−4, 7x+4", "answer": "x = 40", "steps": ["Heptagon sum = 900°", "Add expressions: 23x − 20 = 900", "23x=920", "x=40"], "diagram": "heptx"}, {"id": "P21", "group": "Polygon", "topic": "Interior angle sum", "title": "Sum of interior angles of a 14-sided polygon", "answer": "2160°", "steps": ["S = (14 − 2) × 180° = 2160°"], "diagram": "poly14"}, {"id": "P22", "group": "Polygon", "topic": "Regular polygon angle", "title": "Each interior angle of a regular 16-sided polygon", "answer": "157.5°", "steps": ["A = ((16−2)×180°)/16 = 157.5°"], "diagram": "poly16"}, {"id": "P23", "group": "Polygon", "topic": "Exterior angles", "title": "Sum of exterior angles of a decagon", "answer": "360°", "steps": ["The sum of exterior angles of any convex polygon is always 360°."], "diagram": "exterior"}, {"id": "P24", "group": "Polygon", "topic": "Number of sides", "title": "Each exterior angle is 22.5°. How many sides?", "answer": "16 sides", "steps": ["n = 360° ÷ 22.5° = 16"], "diagram": "exterior"}, {"id": "P25", "group": "Polygon", "topic": "Polygon existence", "title": "Can a polygon have interior angle sum 3060°?", "answer": "Yes, 19 sides", "steps": ["3060 = (n−2)×180", "3060/180=17", "n−2=17, so n=19"], "diagram": "poly19"}, {"id": "P26", "group": "Polygon", "topic": "Polygon existence", "title": "Can a polygon have interior angle sum 1350°?", "answer": "No", "steps": ["1350/180=7.5", "n would be 9.5, not a whole number."], "diagram": "poly"}, {"id": "P27", "group": "Polygon", "topic": "Polygon existence", "title": "Can a polygon have interior angle sum 4410°?", "answer": "No", "steps": ["4410/180=24.5", "n would be 26.5, not a whole number."], "diagram": "poly"}, {"id": "P28", "group": "Polygon", "topic": "Proof", "title": "Regular pentagon ABCDE: is EB ∥ DF?", "answer": "Yes, EB ∥ DF", "steps": ["Regular pentagon exterior angles are 72°", "The marked angles are corresponding/equal", "Equal corresponding angles imply parallel lines."], "diagram": "parallel"}, {"id": "P29", "group": "Polygon", "topic": "Regular polygon area", "title": "Area of a regular pentagon with side length 10 units", "answer": "≈ 172.0 square units", "steps": ["A = 5·10² / (4 tan 36°) ≈ 172.0"], "diagram": "area5"}, {"id": "P30", "group": "Polygon", "topic": "Regular polygon area", "title": "Area of a regular 15-gon with side length 5 units", "answer": "≈ 441.0 square units", "steps": ["A = 15·5² / (4 tan 12°) ≈ 441.0"], "diagram": "area15"}, {"id": "C1", "group": "Circle", "topic": "Sector area", "title": "Shaded sector: r = 4, θ = 45°", "answer": "2π", "steps": ["A = (θ/360)πr²", "A = (45/360)π(4²)=2π"], "diagram": "sector45"}, {"id": "C2", "group": "Circle", "topic": "Sector area", "title": "Shaded sector: r = 7, θ = 120°", "answer": "49π/3", "steps": ["A = (120/360)π(7²)=49π/3"], "diagram": "sector120"}, {"id": "C3", "group": "Circle", "topic": "Sector area", "title": "Shaded sector: 3/4 circle, r = 11", "answer": "363π/4", "steps": ["3/4 circle means θ=270°", "A=(3/4)π(11²)=363π/4"], "diagram": "sector270"}, {"id": "C4", "group": "Circle", "topic": "Sector area", "title": "Shaded sector: r = 2, θ = 45°", "answer": "π/2", "steps": ["A=(45/360)π(2²)=π/2"], "diagram": "sector45"}, {"id": "C5", "group": "Circle", "topic": "Sector area", "title": "Shaded sector: r = 6, θ = 120°", "answer": "12π", "steps": ["A=(120/360)π(6²)=12π"], "diagram": "sector120"}, {"id": "C6", "group": "Circle", "topic": "Sector area", "title": "Shaded sector: r = 7, θ = 170°", "answer": "833π/36", "steps": ["A=(170/360)π(7²)=833π/36"], "diagram": "sector170"}, {"id": "C7", "group": "Circle", "topic": "Sector area", "title": "Shaded sector: r = 10, θ = 18°", "answer": "5π", "steps": ["A=(18/360)π(10²)=5π"], "diagram": "sector18"}, {"id": "C8", "group": "Circle", "topic": "Circle segment", "title": "Quarter-circle segment with r = 2", "answer": "π − 2", "steps": ["Quarter sector area=(90/360)π(2²)=π", "Triangle area=1/2·2·2=2", "Segment=π−2"], "diagram": "segment"}, {"id": "C9", "group": "Circle", "topic": "Circle segment", "title": "Segment: 120° sector, r = 10, minus triangle area 25", "answer": "100π/3 − 25", "steps": ["Sector=(120/360)π(10²)=100π/3", "Subtract triangle area 25."], "diagram": "segment120"}, {"id": "C10", "group": "Circle", "topic": "Shaded region", "title": "Circle with cross-shaped unshaded region", "answer": "Needs closer photo check", "steps": ["The photo is not clear enough to verify the exact dimensions.", "Use shaded area = total circle area − unshaded pieces."], "diagram": "unclear"}, {"id": "C11", "group": "Circle", "topic": "Lens area", "title": "Square side 4; two quarter-circle arcs form a lens", "answer": "8π − 16", "steps": ["Two quarter circles: 2·(1/4)π(4²)=8π", "Subtract square area 16."], "diagram": "lens"}, {"id": "C12", "group": "Circle", "topic": "Circle area", "title": "Circular garden diameter 30 ft", "answer": "225π ft²", "steps": ["Radius=15", "Area=π(15²)=225π"], "diagram": "circle"}, {"id": "C13", "group": "Circle", "topic": "Inscribed circle", "title": "Circle inscribed in square with diagonal 8 ft", "answer": "8π ft²", "steps": ["Square side=8/√2=4√2", "Circle radius=2√2", "Area=π(2√2)²=8π"], "diagram": "inscribed"}, {"id": "C14", "group": "Circle", "topic": "Sector radius", "title": "60° sector area is 10π m². Find r", "answer": "2√15 m", "steps": ["10π=(60/360)πr²", "r²=60", "r=2√15"], "diagram": "sector60"}, {"id": "C15", "group": "Circle", "topic": "Sector angle", "title": "Sector area 10π, radius 5 mm. Find central angle", "answer": "144°", "steps": ["10π=(θ/360)π(5²)", "θ=144°"], "diagram": "sector"}, {"id": "C16", "group": "Circle", "topic": "Shaded region", "title": "10 m square minus two 60° sectors with r = 5", "answer": "100 − 25π/3 m²", "steps": ["Square area=100", "Two sectors=2·(60/360)π(5²)=25π/3", "Shaded=100−25π/3"], "diagram": "sqsectors"}, {"id": "C17", "group": "Circle", "topic": "Shaded region", "title": "14 ft square minus four quarter-circles of radius 7", "answer": "196 − 49π ft²", "steps": ["Square area=196", "Four quarters make one circle radius 7, area 49π", "Shaded=196−49π"], "diagram": "sqpetals"}, {"id": "C18", "group": "Circle", "topic": "Shaded region", "title": "Yin-yang style circle problem", "answer": "Needs closer photo check", "steps": ["The photo is too blurry to confirm all shaded parts and labels.", "Use large circle area ± semicircles."], "diagram": "unclear"}, {"id": "C19", "group": "Circle", "topic": "Shaded region", "title": "Circle with radius 8 and triangle/sector shading", "answer": "Needs closer photo check", "steps": ["The diagram is not clear enough to identify the exact unshaded piece.", "Use shaded area = circle area − unshaded region."], "diagram": "unclear"}, {"id": "C20", "group": "Circle", "topic": "Annular sector", "title": "Annulus: R=8, r=5, shaded 300°", "answer": "65π/2", "steps": ["Full annulus=π(8²−5²)=39π", "Shaded is 300/360=5/6", "Area=(5/6)(39π)=65π/2"], "diagram": "annulus"}, {"id": "C21", "group": "Circle", "topic": "Shaded region", "title": "12 by 12 square outside quarter circle radius 12", "answer": "144 − 36π", "steps": ["Square=144", "Quarter circle=(1/4)π(12²)=36π", "Shaded=144−36π"], "diagram": "sqquarter"}, {"id": "C22", "group": "Circle", "topic": "Find radius", "title": "Shaded 120° sector area is 12π cm²", "answer": "r = 6 cm", "steps": ["12π=(120/360)πr²", "12=r²/3", "r²=36", "r=6"], "diagram": "sector120"}, {"id": "C23", "group": "Circle", "topic": "Arc length", "title": "Arc length of problem 1: r=4, θ=45°", "answer": "π", "steps": ["L=(45/360)·2π·4=π"], "diagram": "arc"}, {"id": "C24", "group": "Circle", "topic": "Arc length", "title": "Arc length of problem 2: r=7, θ=120°", "answer": "14π/3", "steps": ["L=(120/360)·2π·7=14π/3"], "diagram": "arc"}, {"id": "C25", "group": "Circle", "topic": "Arc length", "title": "Arc length of problem 3: r=11, θ=270°", "answer": "33π/2", "steps": ["L=(270/360)·2π·11=33π/2"], "diagram": "arc"}, {"id": "C26", "group": "Circle", "topic": "Arc length", "title": "Arc length of problem 4: r=2, θ=45°", "answer": "π/2", "steps": ["L=(45/360)·2π·2=π/2"], "diagram": "arc"}, {"id": "C27", "group": "Circle", "topic": "Racetrack perimeter", "title": "Rectangle 1408 m by 302 m with two semicircles", "answer": "2816 + 302π m", "steps": ["Two semicircles make one full circle.", "Circle diameter=302, circumference=302π", "Straight parts=1408+1408=2816", "Total=2816+302π"], "diagram": "track"}, {"id": "C28", "group": "Circle", "topic": "Tethered dog area", "title": "Dog tied at corner X with 20 ft rope, barn sides 15 ft and 11 ft", "answer": "1225π/4 ft²", "steps": ["From outside corner X: 3/4 circle radius 20 = 300π", "Wrap down 15 ft, 5 ft remains: add 1/4 circle radius 5 = 25π/4", "Total=300π+25π/4=1225π/4"], "diagram": "dog"}];
+
+
+    let problemFilter = "all";
+
+    function setProblemFilter(filter) {
+      problemFilter = filter;
+      document.querySelectorAll("[data-problem-filter]").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.problemFilter === filter);
+      });
+      renderProblemLibrary();
+    }
+
+    function renderProblemLibrary() {
+      const grid = document.getElementById("problem-grid");
+      const input = document.getElementById("problem-search");
+      if (!grid) return;
+      const q = (input?.value || "").toLowerCase().trim();
+      const list = WORKSHEET_PROBLEMS.filter(p => {
+        if (problemFilter === "Polygon" && p.group !== "Polygon") return false;
+        if (problemFilter === "Circle" && p.group !== "Circle") return false;
+        if (problemFilter === "check" && !String(p.answer).toLowerCase().includes("needs")) return false;
+        const haystack = `${p.id} ${p.group} ${p.topic} ${p.title} ${p.answer}`.toLowerCase();
+        return haystack.includes(q);
+      });
+
+      grid.innerHTML = list.map((p, idx) => `
+        <div class="problem-card">
+          <div class="problem-top">
+            <div>
+              <div class="problem-title">${escapeHtml(p.title)}</div>
+              <div class="tiny">${escapeHtml(p.group)} • ${escapeHtml(p.topic)}</div>
+            </div>
+            <div class="problem-id">#${escapeHtml(p.id)}</div>
+          </div>
+          <div class="problem-diagram">${problemDiagram(p.diagram, p.id)}</div>
+          <div class="problem-body">
+            <div class="problem-answer">Answer: ${escapeHtml(p.answer)}</div>
+            <button class="btn secondary" onclick="toggleProblemSteps(this)">Show steps</button>
+            <ol class="steps">${p.steps.map(s => `<li>${escapeHtml(s)}</li>`).join("")}</ol>
+            <div class="formula-chip">${formulaFor(p.topic)}</div>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>'"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));
+    }
+
+    function toggleProblemSteps(btn) {
+      const steps = btn.nextElementSibling;
+      steps.classList.toggle("show");
+      btn.textContent = steps.classList.contains("show") ? "Hide steps" : "Show steps";
+    }
+
+    function formulaFor(topic) {
+      if (topic.includes("Interior angle sum")) return "S = (n − 2) × 180°";
+      if (topic.includes("Regular polygon angle")) return "Interior angle = ((n − 2)180°) / n";
+      if (topic.includes("Exterior") || topic.includes("Number of sides")) return "Exterior angle = 360° / n";
+      if (topic.includes("polygon area")) return "A = ns² / (4tan(180°/n))";
+      if (topic.includes("Sector")) return "Sector area = (θ/360)πr²";
+      if (topic.includes("Arc")) return "Arc length = (θ/360)2πr";
+      if (topic.includes("Circle area")) return "A = πr²";
+      return "Break the figure into known pieces";
+    }
+
+    function problemDiagram(kind, id) {
+      if (kind === "unclear") return unclearSvg();
+      if (kind.startsWith("poly")) return regularPolygonSvg(Number(kind.replace("poly", "")) || 9);
+      if (kind === "quadx") return labeledPolygonSvg(4, ["5x", "3x", "3x", "4x"]);
+      if (kind === "pentx") return labeledPolygonSvg(5, ["x", "x", "1.5x", "0.5x", "1.5x"]);
+      if (kind === "hexx") return labeledPolygonSvg(6, ["5x", "5x", "3x", "4x", "2x", "4x"]);
+      if (kind === "heptx") return labeledPolygonSvg(7, ["5x", "x−7", "3x−1", "2x−9", "4x−3", "x−4", "7x+4"]);
+      if (kind === "area5") return areaPolygonSvg(5, "s = 8 or 10");
+      if (kind === "area6") return areaPolygonSvg(6, "s = 10");
+      if (kind === "area8") return areaPolygonSvg(8, "s = 12");
+      if (kind === "area10") return areaPolygonSvg(10, "s = 14");
+      if (kind === "area15") return areaPolygonSvg(15, "s = 5");
+      if (kind === "parallel") return pentagonParallelSvg();
+      if (kind === "exterior") return exteriorSvg();
+      if (kind === "interior") return interiorSvg();
+      if (kind === "sector45") return sectorSvg(45, "sector");
+      if (kind === "sector120") return sectorSvg(120, "sector");
+      if (kind === "sector270") return sectorSvg(270, "sector");
+      if (kind === "sector170") return sectorSvg(170, "sector");
+      if (kind === "sector18") return sectorSvg(18, "sector");
+      if (kind === "sector60") return sectorSvg(60, "sector");
+      if (kind === "sector") return sectorSvg(144, "angle");
+      if (kind === "segment") return segmentSvg(90);
+      if (kind === "segment120") return segmentSvg(120);
+      if (kind === "lens") return lensSvg();
+      if (kind === "circle") return circleSvg("d = 30");
+      if (kind === "inscribed") return inscribedCircleSvg();
+      if (kind === "sqsectors") return squareSectorsSvg();
+      if (kind === "sqpetals") return squarePetalsSvg();
+      if (kind === "annulus") return annulusSvg();
+      if (kind === "sqquarter") return squareQuarterSvg();
+      if (kind === "arc") return sectorSvg(id === "C25" ? 270 : id === "C24" ? 120 : 45, "arc length");
+      if (kind === "track") return trackSvg();
+      if (kind === "dog") return dogSvg();
+      return regularPolygonSvg(6);
+    }
+
+    function svgWrap(content, w=260, h=180) {
+      return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="geometry diagram">${content}</svg>`;
+    }
+
+    function polygonPoints(cx, cy, r, n, rot=-90) {
+      return Array.from({length:n}, (_,i) => {
+        const a = (rot + i*360/n) * Math.PI/180;
+        return [cx + r*Math.cos(a), cy + r*Math.sin(a)];
+      });
+    }
+
+    function regularPolygonSvg(n) {
+      const pts = polygonPoints(130, 90, 62, n).map(p => p.join(",")).join(" ");
+      return svgWrap(`<polygon points="${pts}" fill="rgba(86,227,159,.16)" stroke="white" stroke-width="3"/><text x="130" y="96" text-anchor="middle" fill="white" font-size="19" font-weight="900">${n} sides</text>`);
+    }
+
+    function labeledPolygonSvg(n, labels) {
+      const pts = polygonPoints(130, 90, 63, n);
+      const poly = pts.map(p => p.join(",")).join(" ");
+      const texts = pts.map((p,i) => `<text x="${p[0]}" y="${p[1]}" text-anchor="middle" fill="#ffd76a" font-size="13" font-weight="900">${labels[i] || "x"}</text>`).join("");
+      return svgWrap(`<polygon points="${poly}" fill="rgba(86,200,255,.16)" stroke="white" stroke-width="3"/>${texts}<text x="130" y="170" text-anchor="middle" fill="#bdd0ea" font-size="12">sum angles, then solve</text>`);
+    }
+
+    function areaPolygonSvg(n, label) {
+      const pts = polygonPoints(130, 82, 55, n).map(p => p.join(",")).join(" ");
+      return svgWrap(`<polygon points="${pts}" fill="rgba(255,215,106,.18)" stroke="white" stroke-width="3"/><line x1="130" y1="82" x2="130" y2="28" stroke="#56e39f" stroke-width="3"/><text x="140" y="55" fill="#56e39f" font-weight="900">apothem</text><text x="130" y="160" text-anchor="middle" fill="white" font-size="15">${label}</text>`);
+    }
+
+    function exteriorSvg() { return svgWrap(`<polygon points="130,30 190,90 130,150 70,90" fill="rgba(86,200,255,.14)" stroke="white" stroke-width="3"/><path d="M190 90 L225 90" stroke="#ffd76a" stroke-width="4"/><path d="M180 80 A22 22 0 0 1 203 90" fill="none" stroke="#ffd76a" stroke-width="3"/><text x="130" y="95" text-anchor="middle" fill="white">360° total exterior</text>`); }
+    function interiorSvg() { return svgWrap(`<polygon points="130,28 190,80 166,145 94,145 70,80" fill="rgba(255,92,200,.14)" stroke="white" stroke-width="3"/><text x="130" y="92" text-anchor="middle" fill="white">interior</text><text x="130" y="112" text-anchor="middle" fill="#ffd76a">180° − exterior</text>`); }
+
+    function point(cx,cy,r,deg){const a=deg*Math.PI/180; return [cx+r*Math.cos(a), cy+r*Math.sin(a)];}
+    function sectorSvg(theta, label) {
+      const cx=130, cy=90, r=58, a1=-90, a2=-90+theta, p1=point(cx,cy,r,a1), p2=point(cx,cy,r,a2), large=theta>180?1:0;
+      return svgWrap(`<circle cx="${cx}" cy="${cy}" r="${r}" fill="rgba(255,255,255,.04)" stroke="white" stroke-width="3"/><path d="M ${cx} ${cy} L ${p1[0]} ${p1[1]} A ${r} ${r} 0 ${large} 1 ${p2[0]} ${p2[1]} Z" fill="rgba(86,200,255,.32)" stroke="#56c8ff" stroke-width="3"/><text x="130" y="96" text-anchor="middle" fill="white" font-size="18" font-weight="900">${theta}°</text><text x="130" y="165" text-anchor="middle" fill="#bdd0ea" font-size="12">${label}</text>`);
+    }
+
+    function segmentSvg(theta) {
+      const cx=130, cy=90, r=58, p1=point(cx,cy,r,-90), p2=point(cx,cy,r,-90+theta);
+      return svgWrap(`<circle cx="${cx}" cy="${cy}" r="${r}" fill="rgba(255,255,255,.04)" stroke="white" stroke-width="3"/><path d="M ${p1[0]} ${p1[1]} A ${r} ${r} 0 0 1 ${p2[0]} ${p2[1]} L ${p1[0]} ${p1[1]}" fill="rgba(255,92,200,.28)" stroke="#ff5cc8" stroke-width="3"/><line x1="${cx}" y1="${cy}" x2="${p1[0]}" y2="${p1[1]}" stroke="#ffd76a"/><line x1="${cx}" y1="${cy}" x2="${p2[0]}" y2="${p2[1]}" stroke="#ffd76a"/><text x="130" y="165" text-anchor="middle" fill="white">segment = sector − triangle</text>`);
+    }
+    function lensSvg(){return svgWrap(`<rect x="85" y="40" width="90" height="90" fill="rgba(255,255,255,.04)" stroke="white" stroke-width="3"/><path d="M85 40 A90 90 0 0 0 175 130 A90 90 0 0 0 85 40" fill="rgba(86,200,255,.26)" stroke="#56c8ff" stroke-width="3"/><text x="130" y="160" text-anchor="middle" fill="white">two quarter circles − square</text>`)}
+    function circleSvg(label){return svgWrap(`<circle cx="130" cy="90" r="58" fill="rgba(86,200,255,.18)" stroke="white" stroke-width="3"/><line x1="72" y1="90" x2="188" y2="90" stroke="#ffd76a" stroke-width="4"/><text x="130" y="82" text-anchor="middle" fill="white">${label}</text>`)}
+    function inscribedCircleSvg(){return svgWrap(`<rect x="80" y="40" width="100" height="100" fill="rgba(255,255,255,.04)" stroke="white" stroke-width="3"/><circle cx="130" cy="90" r="50" fill="rgba(86,227,159,.16)" stroke="#56e39f" stroke-width="3"/><line x1="80" y1="40" x2="180" y2="140" stroke="#ffd76a" stroke-width="4"/><text x="142" y="62" fill="white">diagonal 8</text>`)}
+    function squareSectorsSvg(){return svgWrap(`<rect x="75" y="35" width="110" height="110" fill="rgba(86,200,255,.18)" stroke="white" stroke-width="3"/><path d="M130 145 L75 145 A55 55 0 0 1 102 98 Z" fill="#071226" stroke="#ffd76a" stroke-width="3"/><path d="M130 145 L185 145 A55 55 0 0 0 158 98 Z" fill="#071226" stroke="#ffd76a" stroke-width="3"/><text x="130" y="165" text-anchor="middle" fill="white">square − two sectors</text>`)}
+    function squarePetalsSvg(){return svgWrap(`<rect x="75" y="35" width="110" height="110" fill="rgba(86,227,159,.18)" stroke="white" stroke-width="3"/><circle cx="75" cy="35" r="55" fill="none" stroke="#ffd76a" stroke-width="3"/><circle cx="185" cy="35" r="55" fill="none" stroke="#ffd76a" stroke-width="3"/><circle cx="75" cy="145" r="55" fill="none" stroke="#ffd76a" stroke-width="3"/><circle cx="185" cy="145" r="55" fill="none" stroke="#ffd76a" stroke-width="3"/><text x="130" y="165" text-anchor="middle" fill="white">square − 4 quarters</text>`)}
+    function annulusSvg(){return svgWrap(`<circle cx="130" cy="90" r="58" fill="rgba(86,200,255,.22)" stroke="white" stroke-width="3"/><circle cx="130" cy="90" r="34" fill="#071226" stroke="white" stroke-width="3"/><path d="M130 90 L162 62 A58 58 0 0 1 188 90 Z" fill="#071226"/><text x="168" y="120" fill="white">R=8</text><text x="133" y="84" fill="#ffd76a">r=5</text>`)}
+    function squareQuarterSvg(){return svgWrap(`<rect x="75" y="35" width="110" height="110" fill="rgba(86,200,255,.18)" stroke="white" stroke-width="3"/><path d="M75 145 A110 110 0 0 1 185 35 L185 145 Z" fill="#071226" stroke="#ffd76a" stroke-width="3"/><text x="130" y="165" text-anchor="middle" fill="white">square − quarter circle</text>`)}
+    function pentagonParallelSvg(){return svgWrap(`<polygon points="130,25 200,75 173,150 87,150 60,75" fill="rgba(86,227,159,.15)" stroke="white" stroke-width="3"/><line x1="60" y1="75" x2="200" y2="75" stroke="#56c8ff" stroke-width="4"/><line x1="87" y1="150" x2="235" y2="150" stroke="#56c8ff" stroke-width="4"/><line x1="200" y1="75" x2="235" y2="150" stroke="white" stroke-width="3"/><text x="132" y="100" fill="#ffd76a" text-anchor="middle">72°</text><text x="156" y="143" fill="#ffd76a">72°</text>`)}
+    function trackSvg(){return svgWrap(`<path d="M70 45 H190 A45 45 0 0 1 190 135 H70 A45 45 0 0 1 70 45" fill="rgba(86,227,159,.16)" stroke="white" stroke-width="3"/><text x="130" y="40" fill="white" text-anchor="middle">1408 m</text><text x="60" y="95" fill="#ffd76a" text-anchor="end">302 m</text>`)}
+    function dogSvg(){return svgWrap(`<path d="M80 28 H190 V85 H150 V155 H80 Z" fill="rgba(255,255,255,.08)" stroke="white" stroke-width="3"/><circle cx="190" cy="28" r="4" fill="#ffd76a"/><text x="198" y="27" fill="white">X</text><path d="M190 28 A70 70 0 0 1 120 98" fill="none" stroke="#56e39f" stroke-width="4"/><path d="M190 85 A25 25 0 0 1 165 110" fill="none" stroke="#ff5cc8" stroke-width="4"/><text x="196" y="62" fill="white">15 ft</text><text x="158" y="82" fill="white">11 ft</text>`, 260, 180)}
+    function unclearSvg(){return svgWrap(`<rect x="35" y="35" width="190" height="105" rx="18" fill="rgba(255,255,255,.08)" stroke="white"/><text x="130" y="80" text-anchor="middle" fill="white" font-size="18" font-weight="900">Needs closer photo</text><text x="130" y="108" text-anchor="middle" fill="#bdd0ea" font-size="13">I won’t guess this answer</text>`)}
+
 
     const QUESTIONS = [
       {id:1, level:"easy", type:"property", prompt:"Which shape always has 4 right angles?", options:["Trapezoid","Rectangle","Kite","Rhombus"], answer:"Rectangle", explain:"A rectangle always has 4 right angles. A square does too, but it was not an option here."},
@@ -1256,6 +1466,7 @@
     renderHero();
     renderLearn();
     renderFamily();
+    renderProblemLibrary();
     renderQuiz();
     renderMatch();
     renderParent();
